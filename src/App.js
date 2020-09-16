@@ -1,11 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
+import { render } from 'react-dom';
 import './App.css';
+import ContactList from './Components/ContactList';
 import contacts from './contacts.json';
-import ContactsList from './Components/ContactsList';
 
 const App = () => {
-  return <ContactsList />;
+  return (
+    <div>
+      <ContactList />
+    </div>
+  );
 };
 
 export default App;

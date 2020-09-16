@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 }
+
+.container-contacts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container-contacts p {
+  margin: 10px;
+}
+
+.card-contact {
+  display: flex;
+  align-items: center;
+}
+
+.img-contact img {
+  width: 100px;
+}
+
+.name-contact {
+  font-size: 22px;
+  width: 100px;
+}
+
+.popu-contact {
+  font-size: 22px;
+  width: 100px;
+}
+
+.titles {
+  display: flex;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.titles p {
+  margin: 12px;
+}

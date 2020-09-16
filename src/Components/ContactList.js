@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { DetailContact } from './DetailContact';
 import contacts from '../contacts.json';
+import DetailContact from './DetailContact';
 
-class ContactsList extends Component {
+class ContactList extends Component {
   state = { renderContacts: contacts.slice(0, 5) };
 
   handleRandom = () => {
-    let random;
+    let random = [];
     let inList = true;
     while (inList) {
       random = contacts[Math.floor(Math.random() * contacts.length)];
@@ -24,39 +24,37 @@ class ContactsList extends Component {
 
   handleSortByName = () => {
     let sortedNames = this.state.renderContacts.sort((a, b) => {
-      if (a.name < b.name) {
-        return -1;
-      }
       if (a.name > b.name) {
         return 1;
+      } else if (a.name < b.name) {
+        return -1;
+      } else {
+        return 0;
       }
-      return 0;
     });
-    console.log(sortedNames);
 
     this.setState({
-      renderContacts: sortedNames,
+      renderContacts: [sortedNames, ...this.state.renderContacts],
     });
   };
 
-  handleSortByPopularity = () => {
-    let sortedNames = this.state.renderContacts.sort((a, b) => {
-      if (a.popularity < b.popularity) {
-        return -1;
-      }
+  handleSortByPopu = () => {
+    let sortedPopularity = this.state.renderContacts.sort((a, b) => {
       if (a.popularity > b.popularity) {
         return 1;
+      } else if (a.popularity < b.popularity) {
+        return -1;
+      } else {
+        return 0;
       }
-      return 0;
     });
-    console.log(sortedNames);
 
     this.setState({
-      renderContacts: sortedNames,
+      renderContacts: [sortedPopularity, ...this.state.renderContacts],
     });
   };
 
-  renderContactList = () => {
+  getContacts = () => {
     return this.state.renderContacts.map((contact, i) => {
       return (
         <DetailContact
@@ -69,9 +67,14 @@ class ContactsList extends Component {
     });
   };
 
+  fiveContacts = (event) => {
+    return this.event.slice(0, 6);
+  };
+
   render() {
     return (
       <div>
+        <h1>IRONCONTACTS</h1>
         <div>
           <button onClick={this.handleRandom}>add a random contact</button>
         </div>
@@ -79,19 +82,17 @@ class ContactsList extends Component {
           <button onClick={this.handleSortByName}>sort by name</button>
         </div>
         <div>
-          <button onClick={this.handleSortByPopularity}>
-            sort by popularity
-          </button>
+          <button onClick={this.handleSortByPopu}>sort by popularity</button>
         </div>
-        <div>
+        <div className="titles">
           <p>Picture</p>
           <p>Name</p>
           <p>Popularity</p>
         </div>
-        <div>{this.renderContactList()}</div>
+        <div className="container-contacts">{this.getContacts()}</div>
       </div>
     );
   }
 }
 
-export default ContactsList;
+export default ContactList;
