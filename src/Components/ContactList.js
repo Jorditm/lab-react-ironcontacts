@@ -34,7 +34,7 @@ class ContactList extends Component {
     });
 
     this.setState({
-      renderContacts: [sortedNames, ...this.state.renderContacts],
+      renderContacts: sortedNames,
     });
   };
 
@@ -50,18 +50,29 @@ class ContactList extends Component {
     });
 
     this.setState({
-      renderContacts: [sortedPopularity, ...this.state.renderContacts],
+      renderContacts: sortedPopularity,
+    });
+  };
+
+  deleteContact = (id) => {
+    const deleteBtn = this.state.renderContacts.filter(
+      (contact) => contact.id !== id
+    );
+    this.setState({
+      renderContacts: deleteBtn,
     });
   };
 
   getContacts = () => {
-    return this.state.renderContacts.map((contact, i) => {
+    return this.state.renderContacts.map((contact) => {
       return (
         <DetailContact
-          key={i}
+          key={contact.id}
+          id={contact.id}
           name={contact.name}
           pictureUrl={contact.pictureUrl}
           popularity={contact.popularity}
+          deleteContact={this.deleteContact}
         />
       );
     });
@@ -74,20 +85,25 @@ class ContactList extends Component {
   render() {
     return (
       <div>
-        <h1>IRONCONTACTS</h1>
-        <div>
-          <button onClick={this.handleRandom}>add a random contact</button>
+        <div className="title">
+          <h1>IRONCONTACTS</h1>
         </div>
-        <div>
-          <button onClick={this.handleSortByName}>sort by name</button>
-        </div>
-        <div>
-          <button onClick={this.handleSortByPopu}>sort by popularity</button>
+        <div className="btns">
+          <div>
+            <button onClick={this.handleRandom}>add a random contact</button>
+          </div>
+          <div>
+            <button onClick={this.handleSortByName}>sort by name</button>
+          </div>
+          <div>
+            <button onClick={this.handleSortByPopu}>sort by popularity</button>
+          </div>
         </div>
         <div className="titles">
           <p>Picture</p>
           <p>Name</p>
           <p>Popularity</p>
+          <p>Action</p>
         </div>
         <div className="container-contacts">{this.getContacts()}</div>
       </div>
